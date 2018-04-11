@@ -18,8 +18,15 @@ module TimeHorizon
     end
 
     def self.find(id)
-      attr = Store.table(table)[id]
-      new(id: id, **attr)
+      find_by(id: id)
+    end
+
+    def self.find_by(**matchers)
+      attrs = Store.table(table).detect do |record|
+        (matchers.to_a - record.to_a).empty?
+      end
+
+      new(attrs) if attrs
     end
 
     def self.attributes
@@ -37,9 +44,15 @@ module TimeHorizon
         d[attr] = send(attr)
       end
 
-      @id ||= self.class.next_id
-      current_value = Store.table(self.class.table)[@id] || {}
-      Store.table(self.class.table)[@id] = current_value.merge(data)
+      if id
+        existing_record = self.class.find(id)
+        existing_record.merge!(data)
+      else
+        @id ||= self.class.next_id
+        Store.table(self.class.table) << { id: @id, **data }
+      end
+
+      self
     end
 
     def attributes

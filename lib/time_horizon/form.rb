@@ -15,7 +15,7 @@ module TimeHorizon
     end
 
     def complete?
-      attributes.all do |attr|
+      attributes.all? do |attr|
         !send(attr).nil? || send(attr) != ''
       end
     end

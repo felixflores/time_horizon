@@ -1,16 +1,16 @@
 module TimeHorizon
   module Services
-    class InsurancePolicies
+    class InsurancePolicy
       RECORDS = {
         '123456' => {
           carrier: 'Aetna',
-          members: [1234, 7890]
+          members: ['1234', '7890']
         }
       }
 
-      def self.is_members?(policy_number:, member_id:)
+      def self.is_member?(policy_number:, member_id:)
         record = RECORDS[policy_number.to_s]
-        record[:members].include?(member_id) if record
+        !!(record && record[:members].include?(member_id))
       end
     end
   end

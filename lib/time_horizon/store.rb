@@ -16,7 +16,7 @@ module TimeHorizon
     end
 
     def table(table_name)
-      @store[table_name] ||= {}
+      @store[table_name] ||= []
       @store[table_name]
     end
   end

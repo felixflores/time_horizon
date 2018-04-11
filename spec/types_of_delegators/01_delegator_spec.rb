@@ -7,7 +7,7 @@ class DelegatedThing < Delegator
 
   def __setobj__(obj)
     @obj = obj
- end
+  end
 end
 
 RSpec.describe 'delegator' do

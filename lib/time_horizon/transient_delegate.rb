@@ -11,7 +11,7 @@ def TransientDelegateClass(superclass)
     new(superclass.find(id))
   end
 
-  klass.define_singleton_method :find do |**attrs|
+  klass.define_singleton_method :find_by do |**attrs|
     new(superclass.find_by(attrs))
   end
 

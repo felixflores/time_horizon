@@ -1,21 +1,13 @@
 # frozen_string_literal: true
 
 module TimeHorizon
-  class Determination < DelegateClass(Review)
-    def self.find(id)
-      new(Review.find(id))
-    end
-
+  class Determination < TransientDelegateClass(Review)
     def self.from_prior_authorization(pa)
       if pa.is_a?(PriorAuthorization)
         pa
       else
         PriorAuthorization.find(pa)
       end
-    end
-
-    def initialize(review = Review.new)
-      super review
     end
 
     def form

@@ -1,15 +1,7 @@
 # frozen_string_literal: true
 
 module TimeHorizon
-  class Form < DelegateClass(PriorAuthorization)
-    def self.find(id)
-      new(PriorAuthorization.find(id))
-    end
-
-    def initialize(pa = PriorAuthorization.new)
-      super pa
-    end
-
+  class Form < TransientDelegateClass(PriorAuthorization)
     def drug
       @drug ||= Drug.find(drug_id)
     end
